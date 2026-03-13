@@ -1,8 +1,7 @@
-import jwt from 'jsonwebtoken'
 import bcrypt from "bcryptjs"
 
 import { users } from '../models/userModel.js'
-import { generateAccessToken, generateRefreshToken } from "../utils/generateTokens.js"
+import { generateAccessToken } from "../utils/generateTokens.js"
 
 // User signup
 export const signup = async (req, res) => {

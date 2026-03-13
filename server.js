@@ -1,5 +1,6 @@
 import express from "express";
 import { baseRoute } from "./routes/index.js";
+import { connectDB } from "./configs/mongoDBConfig.js";
 
 // Creates an express app
 const app = express();
@@ -7,6 +8,9 @@ const app = express();
 // Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Connect DB
+connectDB();
 
 // Base route
 app.use("/", baseRoute);

@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "npm run test",
+    "test": "node test.js",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "dotenvx run -- nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -26,12 +26,11 @@
   },
   "homepage": "https://github.com/milan-sony/orbit#readme",
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.54.1",
     "nodemon": "^3.1.14"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.54.1",
     "bcryptjs": "^3.0.3",
-    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.0",

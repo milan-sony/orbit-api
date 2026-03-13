@@ -1,7 +1,8 @@
+import jwt from 'jsonwebtoken'
 import bcrypt from "bcryptjs"
 
 import { users } from '../models/userModel.js'
-import { generateAccessToken } from "../utils/generateTokens.js"
+import { generateAccessToken, generateRefreshToken } from "../utils/generateTokens.js"
 
 // User signup
 export const signup = async (req, res) => {
@@ -140,6 +141,41 @@ export const login = async (req, res) => {
         return res.status(500).json({
             status: 500,
             message: "Error logging in the user",
+            error: error.message
+        })
+    }
+}
+
+// Generate refresh token when access token expires
+export const refresh = (req, res) => {
+
+    const token = req.cookies.refreshToken
+
+    if (!token) {
+        return res.status(401).json({
+            status: 401,
+            message: 'Refresh token not found'
+        })
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_REFRESH_TOKEN)
+
+        const userId = decoded.userId
+
+        const newAccessToken = generateAccessToken(userId)
+
+        return res.status(200).json({
+            status: 200,
+            message: "New access token generated",
+            accessToken: newAccessToken
+        })
+    } catch (error) {
+        console.error("Refresh token error:", error)
+
+        return res.status(403).json({
+            status: 403,
+            message: 'Invalid or expired refresh token',
             error: error.message
         })
     }

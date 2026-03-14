@@ -30,10 +30,10 @@ export const generateRefreshToken = (userId, res) => {
         })
 
     } catch (error) {
-        console.error("Error generating tokens: ", error);
+        console.error("Error generating refresh tokens: ", error);
         return res.status(500).json({
             status: 500,
-            message: "Error generating the tokens",
+            message: "Error generating the refresh tokens",
             error: error.message
         });
     }

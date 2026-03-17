@@ -180,3 +180,26 @@ export const refresh = (req, res) => {
         })
     }
 }
+
+// User logout
+export const logout = (req, res) => {
+    try {
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'Strict',
+            path: '/',
+        })
+        return res.status(200).json({
+            status: 200,
+            message: "You have successfully logged out"
+        })
+    } catch (error) {
+        console.error("Error logging out the user, ", error)
+        return res.status(500).json({
+            status: 500,
+            message: "Error logging out the user",
+            error: error.message
+        })
+    }
+}
